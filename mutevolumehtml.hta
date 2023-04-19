@@ -1,0 +1,67 @@
+<html>
+<head>
+<HTA:APPLICATION 
+APPLICATIONNAME="Volume + - ON/OFF" 
+BORDER="THIN" 
+BORDERSTYLE="NORMAL" 
+ICON="SndVol.exe" 
+INNERBORDER="NO" 
+MAXIMIZEBUTTON="NO" 
+MINIMIZEBUTTON="NO" 
+SCROLL="NO" 
+SELECTION="NO" 
+SINGLEINSTANCE="YES"/>
+<title>Switch Volume + - ON/OFF </title>
+<script language="vbscript">
+'************************************************************************************
+Sub window_onload()
+    CenterWindow 250,150
+End Sub
+'************************************************************************************
+Sub Volume(Param)
+    set oShell = CreateObject("WScript.Shell") 
+    Select Case Param 
+    Case "MAX"
+        oShell.SendKeys "{" & chr(175) & " 50}" ' volume maximum 100%
+    Case "MIN"
+        oShell.SendKeys "{" & chr(174) & " 50}" 'volume minimum 0% 
+    Case "UP"
+        oShell.SendKeys "{" & chr(175) & " 10}" 'volume +20%
+    Case "DOWN"
+        oShell.SendKeys "{" & chr(174) & " 10}" 'volume +20%
+    Case "MUTE"
+        oShell.SendKeys chr(173) 'allows to mute / reset the sound (switch)
+    End select
+End Sub
+'*************************************************************************************
+Sub Volume(Param1,Param2,Param3)
+    set oShell = CreateObject("WScript.Shell") 
+    oShell.SendKeys Param1 & chr(Param2) & Param3
+    '--------------------------- MEMO ----------------------------------
+    'oShell.SendKeys "{" & chr(175) & " 50}" ' volume maximum 100%
+    'oShell.SendKeys "{" & chr(174) & " 50}" 'volume minimum 0% 
+    'oShell.SendKeys "{" & chr(175) & " 10}" 'volume +20%
+    'oShell.SendKeys "{" & chr(174) & " 10}" 'volume +20%
+    'oShell.SendKeys chr(173) 'allows to mute / reset the sound (switch)
+End Sub
+'*************************************************************************************
+Sub CenterWindow(x,y)
+    Dim iLeft,itop
+    window.resizeTo x,y
+    iLeft = window.screen.availWidth/2 - x/2
+    itop = window.screen.availHeight/2 - y/2
+    window.moveTo ileft,itop
+End Sub
+'************************************************************************************
+</script>
+</head>
+<body>
+<center>
+<BUTTON onClick="Call Volume('{','175',' 50}')" style="background: Red; color: white;WIDTH: 85px; HEIGHT: 30px">Volume MAX</BUTTON>&nbsp;&nbsp;
+<BUTTON onClick="Call Volume('{','174',' 50}')" style="background: Blue; color: white;WIDTH: 85px; HEIGHT: 30px">Volume MIN</BUTTON>&nbsp;&nbsp;
+<BUTTON onClick="Call Volume('{','175',' 10}')" style="background: Green; color: white;WIDTH: 85px; HEIGHT: 30px">Volume +20%</BUTTON>&nbsp;&nbsp;
+<BUTTON onClick="Call Volume('{','174',' 10}')" style="background: Orange; color: white;WIDTH: 85px; HEIGHT: 30px">Volume -20%</BUTTON>&nbsp;&nbsp;
+<BUTTON onClick="Call Volume('','173','')" style="background: DarkOrange; color: white;WIDTH: 85px; HEIGHT: 30px">ON/OFF</BUTTON>&nbsp;&nbsp;
+</center>
+</body>
+</html>
